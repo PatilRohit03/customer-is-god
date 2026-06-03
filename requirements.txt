@@ -10,3 +10,4 @@ rich
 watchfiles
 requests
 deep_sort_realtime
+httpx

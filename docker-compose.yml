@@ -10,11 +10,4 @@ services:
       - ../resource:/app/data/resource:ro
     environment:
       - DATABASE_URL=sqlite:///./data/store_intelligence.db
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
