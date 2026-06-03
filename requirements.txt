@@ -1,0 +1,12 @@
+ultralytics
+opencv-python-headless
+fastapi
+uvicorn[standard]
+sqlmodel
+pydantic
+pytest
+python-dotenv
+rich
+watchfiles
+requests
+deep_sort_realtime
