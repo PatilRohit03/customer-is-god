@@ -22,10 +22,10 @@ cd customer-is-god
 # 3. Install pipeline dependencies locally
 pip install -r requirements.txt
 
-# 4. Start the FastAPI Backend & SQLite Database in Docker
-docker compose up --build -d
+# 4. Start the FastAPI Backend & SQLite Database in Docker (attached mode to see the dashboard links)
+docker compose up --build
 
-# 5. Run the offline CV detection pipeline against the raw clips
+# 5. Open a NEW terminal window, then run the offline CV detection pipeline against the raw clips
 python -m src.pipeline.run --store-id STORE_1 --resource-dir "data/resource"
 
 # 6. Ingest the generated events into the database
@@ -49,7 +49,7 @@ We built a beautiful, real-time web dashboard to visualize the conversion funnel
 ![Live Dashboard - Store 1](assets/dashboard.png)
 ![Live Dashboard - Store 2](assets/dashboard_store2.png)
 
-**When will it appear?** As soon as `docker compose up --build -d` finishes starting the container, the backend is instantly running. There is no waiting! 
+**When will it appear?** As soon as `docker compose up --build` finishes starting the container, the backend is instantly running. There is no waiting! 
 Simply open your web browser and navigate to:
 👉 **[http://localhost:8000/dashboard](http://localhost:8000/dashboard)**
 
@@ -190,6 +190,5 @@ All outputs were reviewed, heavily tested, and modified before integration.
 
 ## Troubleshooting
 
-- **Browser Limitations:** Browsers only let you open 6 video streams at once. When hot-swapping stores on the live dashboard, press F5 (refresh) to clear the browser's hanging MJPEG stream cache, otherwise the last video feed will appear black.
 - **Docker Network DNS Timeouts:** When running `docker compose up --build` for the first time on Windows, Docker can occasionally lose internet access. Restart the Docker Desktop app and re-run the build command.
 - **Adblocker Interference:** The pipeline configuration requires the checkout video to be named `area_5.mp4`. This specific filename was chosen because testing revealed that browser adblockers (like uBlock Origin) frequently block network streams containing the words "billing" or "checkout".

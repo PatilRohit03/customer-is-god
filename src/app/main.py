@@ -27,6 +27,12 @@ logger.addHandler(ch)
 async def lifespan(app: FastAPI):
     try:
         init_db()
+        print("\n" + "="*60)
+        print("🚀 STORE INTELLIGENCE SYSTEM IS LIVE!")
+        print("="*60)
+        print("👉 Live Dashboard: http://localhost:8000/dashboard")
+        print("👉 API Docs:       http://localhost:8000/docs")
+        print("="*60 + "\n")
     except Exception as e:
         logger.error(f"DB Init error: {e}")
     yield

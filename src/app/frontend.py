@@ -257,6 +257,9 @@ async def dashboard():
     }
 
     async function startTracking() {
+      // Force kill any hanging MJPEG streams from the previous store
+      window.stop();
+
       const storeId = document.getElementById('storeId').value.trim();
       const container = document.getElementById('videoContainer');
       container.innerHTML = '<div style="color:var(--text-muted);">Initializing AI models...</div>';
@@ -286,7 +289,9 @@ async def dashboard():
       }
 
       function stopTracking() {
+        window.stop();
         const container = document.getElementById('videoContainer');
+        container.querySelectorAll('img').forEach(img => { img.src = ''; });
         container.innerHTML = '';
         if (pollInterval) clearInterval(pollInterval);
         pollInterval = null;
@@ -298,9 +303,7 @@ async def dashboard():
           const res = await fetch('/api/reset_db', { method: 'POST' });
           if (!res.ok) throw new Error(res.statusText);
           alert('Database reset successfully!');
-          document.getElementById('metrics').innerHTML = 'Cleared';
-          document.getElementById('funnel').innerHTML = 'Cleared';
-          document.getElementById('heatmap').innerHTML = 'Cleared';
+          refresh();
         } catch (err) {
           alert('Failed to reset DB: ' + err.message);
         }
